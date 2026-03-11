@@ -10,7 +10,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none;
         }
 
         :root {
@@ -19,33 +18,7 @@
             --dark: #0a0a12;
             --darker: #050508;
             --light: #e0e0e0;
-        }
-
-        /* Custom Cursor */
-        .custom-cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            z-index: 999999;
-            pointer-events: none;
-            mix-blend-mode: difference;
-            transition: transform 0.1s ease;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        .custom-cursor-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            z-index: 999999;
-            pointer-events: none;
-            mix-blend-mode: difference;
-            transition: transform 0.05s ease;
-            box-shadow: 0 0 5px var(--primary);
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
 
         body {
@@ -217,6 +190,23 @@
         .about-text {
             line-height: 1.8;
             font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 255, 245, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
         }
 
         .about-text p {
@@ -229,6 +219,20 @@
             border: 1px solid var(--primary);
             box-shadow: 0 0 30px rgba(0, 255, 245, 0.2);
             overflow: hidden;
+            position: relative;
+        }
+
+        .code-window::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 1px;
+            border-radius: 8px;
+            background: var(--gradient-primary);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
         .window-header {
@@ -292,6 +296,23 @@
             padding: 30px;
             transition: all 0.3s;
             backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 245, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .skill-card:hover::before {
+            left: 100%;
         }
 
         .skill-card:hover {
@@ -304,6 +325,18 @@
             color: var(--primary);
             margin-bottom: 15px;
             font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .skill-card h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--gradient-primary);
         }
 
         .skill-card ul {
@@ -339,7 +372,7 @@
             transform: translateX(-50%);
             width: 2px;
             height: 100%;
-            background: var(--primary);
+            background: var(--gradient-primary);
             box-shadow: 0 0 20px var(--primary);
         }
 
@@ -372,14 +405,15 @@
             background: var(--primary);
             border-radius: 50%;
             box-shadow: 0 0 20px var(--primary);
+            border: 3px solid var(--darker);
         }
 
         .timeline-item:nth-child(odd)::after {
-            right: -10px;
+            right: -13px;
         }
 
         .timeline-item:nth-child(even)::after {
-            left: -10px;
+            left: -13px;
         }
 
         .timeline-content {
@@ -388,6 +422,13 @@
             border-radius: 12px;
             padding: 25px;
             backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 0, 200, 0.2);
         }
 
         .timeline-content h3 {
@@ -399,13 +440,26 @@
             color: var(--primary);
             font-weight: bold;
             margin-bottom: 10px;
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(0, 255, 245, 0.1);
+            border-radius: 4px;
         }
 
         /* Hobbies Section */
         .hobbies-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .hobbies-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 500px;
+            }
         }
 
         .hobby-card {
@@ -416,6 +470,24 @@
             text-align: center;
             transition: all 0.3s;
             backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hobby-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .hobby-card:hover::before {
+            transform: scaleX(1);
         }
 
         .hobby-card:hover {
@@ -424,20 +496,15 @@
             box-shadow: 0 10px 30px rgba(0, 255, 245, 0.3);
         }
 
-        .hobby-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
         .hobby-card h3 {
             color: var(--primary);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             font-size: 1.2rem;
         }
 
         .hobby-card p {
             color: var(--light);
-            line-height: 1.5;
+            line-height: 1.8;
             font-size: 0.95rem;
         }
 
@@ -473,17 +540,13 @@
             }
 
             .timeline-item::after {
-                left: 10px !important;
+                left: 7px !important;
                 right: auto !important;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-    <div class="custom-cursor-dot"></div>
-
     <div id="particles-js"></div>
     <div class="matrix-bg"></div>
 
@@ -502,8 +565,9 @@
             <h2 class="section-title">关于我</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>你好，我是一名前端高级工程师，对编程充满热情，喜欢钻研新技术和前沿趋势。在不断挑战自我、追求卓越的过程中，我积累了丰富的项目经验，也养成了持续学习和自我驱动的习惯。</p>
-                    <p>无论是代码的优雅，还是产品的用户体验，我都力求做到极致。相信热情与毅力，是成为优秀程序员的关键。希望用技术创造价值，也期待与志同道合的朋友一起成长进步。</p>
+                    <p>98 年狮子座，重庆人，武汉 211 计算机本科，现居北京。</p>
+                    <p>拥有 4 年网站前端研发经验，1 年 AI 全栈研发经验（偏前端方向）。</p>
+                    <p>使用 Cursor 类 AI IDE 一年时间，目前主力使用 Claude Code 进行开发。</p>
                     <p>MBTI:
                         <a href="https://www.16personalities.com/ch/infj-%E4%BA%BA%E6%A0%BC" target="_blank" rel="noopener">INFJ (2023)</a> →
                         <a href="https://www.16personalities.com/ch/intj-%E4%BA%BA%E6%A0%BC" target="_blank" rel="noopener">INTJ (2024)</a> →
@@ -518,7 +582,7 @@
                     </div>
                     <div class="code-content">
                         <div class="code-line"><span class="keyword">const</span> <span class="variable">developer</span> = {</div>
-                        <div class="code-line">&nbsp;&nbsp;name: <span class="string">'刘杰'</span>,</div>
+                        <div class="code-line">&nbsp;&nbsp;name: <span class="string">'liujie'</span>,</div>
                         <div class="code-line">&nbsp;&nbsp;role: <span class="string">'Frontend Senior Engineer'</span>,</div>
                         <div class="code-line">&nbsp;&nbsp;skills: [<span class="string">'React'</span>, <span class="string">'TypeScript'</span>, <span class="string">'Node.js'</span>, <span class="string">'Java'</span>],</div>
                         <div class="code-line">&nbsp;&nbsp;passion: <span class="string">'Building beautiful & efficient systems'</span></div>
@@ -581,7 +645,7 @@
     <!-- Learning Timeline Section -->
     <section class="section">
         <div class="container">
-            <h2 class="section-title">业务学习</h2>
+            <h2 class="section-title">业余学习</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
@@ -628,29 +692,20 @@
             <h2 class="section-title">兴趣爱好</h2>
             <div class="hobbies-grid">
                 <div class="hobby-card">
-                    <div class="hobby-icon">🎮</div>
                     <h3>游戏</h3>
-                    <p>炉石传说<br>原神<br>塞尔达传说</p>
+                    <p>炉石传说<br>原神<br>塞尔达传说<br>象棋</p>
                 </div>
                 <div class="hobby-card">
-                    <div class="hobby-icon">📚</div>
                     <h3>阅读</h3>
-                    <p>散文小说<br>名著传记<br>技术书籍</p>
+                    <p>散文小说<br>名著传记<br>设计书籍</p>
                 </div>
                 <div class="hobby-card">
-                    <div class="hobby-icon">🎨</div>
                     <h3>艺术</h3>
-                    <p>美食<br>美景<br>摄影</p>
+                    <p>自然风景<br>摄影<br>音乐</p>
                 </div>
                 <div class="hobby-card">
-                    <div class="hobby-icon">🔬</div>
-                    <h3>科研</h3>
-                    <p>逻辑推导<br>代码优雅<br>技术探索</p>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-icon">🏃</div>
-                    <h3>运动</h3>
-                    <p>慢跑<br>骑行<br>户外</p>
+                    <h3>旅行</h3>
+                    <p>徒步<br>Citywalk<br>地方文化</p>
                 </div>
             </div>
         </div>
@@ -658,34 +713,10 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2026 刘杰 | Built with 💻 and ☕</p>
+        <p>&copy; 2026 liujie | Built with code and passion</p>
     </footer>
 
     <script>
-        // Custom Cursor
-        const cursor = document.querySelector('.custom-cursor');
-        const cursorDot = document.querySelector('.custom-cursor-dot');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX - 10 + 'px';
-            cursor.style.top = e.clientY - 10 + 'px';
-            cursorDot.style.left = e.clientX - 3 + 'px';
-            cursorDot.style.top = e.clientY - 3 + 'px';
-        });
-
-        // Add hover effect
-        const interactiveElements = document.querySelectorAll('a, button, .skill-card, .hobby-card, .timeline-content, .code-window');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'scale(1.5)';
-                cursor.style.borderColor = 'var(--secondary)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'scale(1)';
-                cursor.style.borderColor = 'var(--primary)';
-            });
-        });
-
         // Particles.js initialization
         particlesJS('particles-js', {
             particles: {
